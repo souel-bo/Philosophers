@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:28:47 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/02/22 11:38:53 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:14:41 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 unsigned long	ft_atoi(const char *str)
 {
-	int		i;
-	int		s;
-	int		r;
+	unsigned long		i;
+	unsigned long		s;
+	unsigned long		r;
 
 	i = 0;
 	s = 1;
@@ -29,9 +29,12 @@ unsigned long	ft_atoi(const char *str)
 			return 9999999999999;
 		i++;
 	}
-	while ((str[i] >= '0' && str[i] <= '9'))
+	while (str[i])
 	{
-		r = r * 10 + str[i] - '0';
+		if (str[i] >= '0' && str[i] <= '9')
+			r = r * 10 + str[i] - '0';
+		else 
+			return 9999999999999;
 		i++;
 	}
 	return (r * s);
