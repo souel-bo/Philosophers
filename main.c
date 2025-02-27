@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:37 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/02/26 18:33:21 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/02/27 00:42:05 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ int	main(int argc, char *argv[])
 	else
 		initialize_thread(threads);
 	free(threads->threads);
+	free(threads->mutexes);
 	free(threads);
 }
