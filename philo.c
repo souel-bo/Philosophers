@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:14:00 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/02/27 05:55:52 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/02/28 02:02:54 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@ void *routine(void *arg)
 {
 	t_philo *thread = (t_philo *)arg;
 
-	pthread_mutex_lock(&thread->protect);
 	if (thread->id % 2 == 0)
-	{
-		printf("id : %d\n", thread->id);
-		printf("hello from thread %d\n", thread->id); // Use thread->id instead of shared static i
+	{	
+		pthread_mutex_lock(thread->left_fork);
+		printf("Philo %d take the left fork\n", thread->id);
+		pthread_mutex_lock(thread->right_fork);
+		printf("Philo %d take the right fork\n", thread->id);
+		pthread_mutex_unlock(thread->left_fork);
+		pthread_mutex_unlock(thread->right_fork);
 	}
 	else if (thread->id % 2 != 0)
-		printf("is thinking\n");
-	pthread_mutex_unlock(&thread->protect);
+		printf("%d is thinking\n", thread->id);
+	// pthread_mutex_unlock(&thread->protect);
 
 	return NULL;
 }
@@ -51,14 +54,15 @@ void initialize_thread(t_philo *threads)
 		free(threads->mutexes);
 		return ;
 	}
-
 	while (i < threads->philos)
 		pthread_mutex_init(&threads->mutexes[i++], NULL);
 	i = 0;
 	while (i < threads->philos)
 	{
-		philos[i] = *threads;  // Copy base structure
-		philos[i].id = i + 1;  // Assign unique ID
+		philos[i] = *threads;
+		philos[i].id = i + 1;
+		philos[i].left_fork = &philos->mutexes[i];
+		philos[i].right_fork = &philos->mutexes[(i + 1) % philos->philos];
 		pthread_create(&threads->threads[i], NULL, routine, (void *)&philos[i]);
 		i++;
 	}

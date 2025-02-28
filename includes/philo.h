@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:55 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/02/27 01:36:25 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/02/28 01:47:43 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_philo
     unsigned long meals;
 	pthread_mutex_t	protect;
     pthread_mutex_t	*mutexes;
+    pthread_mutex_t	*left_fork;
+    pthread_mutex_t	*right_fork;
     int id;
 } t_philo;
 
