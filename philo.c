@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:14:00 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/02/28 02:02:54 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/02/28 10:21:23 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,29 @@ void *routine(void *arg)
 {
 	t_philo *thread = (t_philo *)arg;
 
-	if (thread->id % 2 == 0)
-	{	
-		pthread_mutex_lock(thread->left_fork);
-		printf("Philo %d take the left fork\n", thread->id);
-		pthread_mutex_lock(thread->right_fork);
-		printf("Philo %d take the right fork\n", thread->id);
-		pthread_mutex_unlock(thread->left_fork);
-		pthread_mutex_unlock(thread->right_fork);
+	while (1)
+	{
+		if (thread->id % 2 == 0)
+		{	
+			pthread_mutex_lock(thread->left_fork);
+			printf("Philo %d take the left fork\n", thread->id);
+			pthread_mutex_lock(thread->right_fork);
+			printf("Philo %d take the right fork\n", thread->id);
+			printf("Philo %d is eating\n", thread->id);
+			usleep(thread->eat * 1000);
+			pthread_mutex_unlock(thread->left_fork);
+			pthread_mutex_unlock(thread->right_fork);
+		}
+		else if (thread->id % 2 != 0)
+		{
+			pthread_mutex_lock(thread->right_fork);
+			printf("Philo %d take the right fork\n", thread->id);
+			pthread_mutex_lock(thread->left_fork);
+			printf("Philo %d take the left fork\n", thread->id);
+			pthread_mutex_unlock(thread->left_fork);
+			pthread_mutex_unlock(thread->right_fork);			
+		}
 	}
-	else if (thread->id % 2 != 0)
-		printf("%d is thinking\n", thread->id);
 	// pthread_mutex_unlock(&thread->protect);
 
 	return NULL;
