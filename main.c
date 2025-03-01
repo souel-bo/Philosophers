@@ -26,19 +26,19 @@ t_philo *check_count(char **arguments, int argc)
 		return NULL;
 	}
 	content->death = ft_atoi(arguments[2]);
-	if (content->death == 9999999999999 || content->death == 0 || content->death > 2147483647)
+	if (content->death == 9999999999999 || content->death > 2147483647)
 	{
 		free(content);
 		return NULL;
 	}
 	content->eat = ft_atoi(arguments[3]);
-	if (content->eat == 9999999999999 || content->eat == 0 || content->eat > 2147483647)
+	if (content->eat == 9999999999999 || content->eat > 2147483647)
 	{
 		free(content);
 		return NULL;
 	}
 	content->sleep = ft_atoi(arguments[4]);
-	if (content->sleep == 9999999999999 || content->sleep == 0 || content->sleep > 2147483647)
+	if (content->sleep == 9999999999999 || content->sleep > 2147483647)
 	{
 		free(content);
 		return NULL;
@@ -67,7 +67,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	else
-		initialize_thread(threads);
+		initialize_thread(threads, argc);
 	free(threads->threads);
 	free(threads->mutexes);
 	free(threads);

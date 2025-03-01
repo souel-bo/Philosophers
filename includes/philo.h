@@ -32,9 +32,10 @@ typedef struct s_philo
     pthread_mutex_t	*left_fork;
     pthread_mutex_t	*right_fork;
     int id;
+    int arguments;
 } t_philo;
 
 unsigned long	ft_atoi(const char *str);
-void 			initialize_thread(t_philo *threads);
+void 			initialize_thread(t_philo *threads, int arguments);
 
 #endif
