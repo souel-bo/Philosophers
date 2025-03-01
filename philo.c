@@ -23,31 +23,22 @@ void *routine(void *arg)
         if (thread->id % 2 == 0)
         {   
             pthread_mutex_lock(thread->left_fork);
-            printf("Philo %d has taken a fork\n", thread->id);
             pthread_mutex_lock(thread->right_fork);
             printf("Philo %d has taken a fork\n", thread->id);
         }
         else
         {
             pthread_mutex_lock(thread->right_fork);
-            printf("Philo %d has taken a fork\n", thread->id);
             pthread_mutex_lock(thread->left_fork);
             printf("Philo %d has taken a fork\n", thread->id);
         }
-        
-        // All philosophers should eat
         printf("Philo %d is eating\n", thread->id);
         usleep(thread->eat * 1000);
-        
-        // All philosophers should release both forks
         pthread_mutex_unlock(thread->left_fork);
         pthread_mutex_unlock(thread->right_fork);
-        
-        // All philosophers should sleep after eating
         printf("Philo %d is sleeping\n", thread->id);
         usleep(thread->sleep * 1000);
     }
-    
     return NULL;
 }
 void initialize_thread(t_philo *threads)
