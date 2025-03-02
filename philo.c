@@ -6,7 +6,7 @@
 /*   By: sfyn <sfyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:14:00 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/01 23:42:25 by sfyn             ###   ########.fr       */
+/*   Updated: 2025/03/02 21:58:57 by sfyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ long get_elapsed_time(long long start_time)
     return get_time() - start_time;  // Get the elapsed time for the philosopher
 }
 
+int check_for_death(t_philo *thread)
+{
+    if (thread->last_meal >= thread->death)
+    {
+        printf("%ld Philo %d died\n", get_elapsed_time(thread->simulation_time), thread->id);
+        return 1;
+    }
+    return 0;
+}
+
 void *routine(void *arg)
 {
     t_philo *thread = (t_philo *)arg;
@@ -25,6 +35,8 @@ void *routine(void *arg)
     {
         while (thread->meals > 0)
         {
+            if (check_for_death(thread) == 1)
+                return NULL;
             printf("%ld Philo %d is thinking\n", get_elapsed_time(thread->simulation_time), thread->id);
         
             if (thread->id % 2 == 0)
@@ -42,6 +54,7 @@ void *routine(void *arg)
                 printf("%ld Philo %d has taken a left fork\n", get_elapsed_time(thread->simulation_time), thread->id);
             }
             printf("%ld Philo %d is eating\n", get_elapsed_time(thread->simulation_time), thread->id);
+            thread->last_meal = get_elapsed_time(thread->simulation_time);
             usleep(thread->eat * 1000);
             pthread_mutex_unlock(thread->left_fork);
             pthread_mutex_unlock(thread->right_fork);
@@ -110,6 +123,7 @@ void initialize_thread(t_philo *threads, int arguments)
         pthread_mutex_init(&threads->mutexes[i++], NULL);
     
     i = 0;
+    threads->last_meal = 0;
     while (i < threads->philos)
     {
         philos[i] = *threads;
