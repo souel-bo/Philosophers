@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sfyn <sfyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:55 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/02/28 05:28:10 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/01 23:32:19 by sfyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 typedef struct s_philo
 {
@@ -33,9 +34,12 @@ typedef struct s_philo
     pthread_mutex_t	*right_fork;
     int id;
     int arguments;
+    long long current_time;
+    long long simulation_time; 
 } t_philo;
 
 unsigned long	ft_atoi(const char *str);
 void 			initialize_thread(t_philo *threads, int arguments);
+long long get_time(void);
 
 #endif

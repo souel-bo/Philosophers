@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sfyn <sfyn@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:28:47 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/02/22 16:14:41 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/01 23:25:50 by sfyn             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,11 @@ unsigned long	ft_atoi(const char *str)
 		i++;
 	}
 	return (r * s);
+}
+
+long long get_time(void)
+{
+	struct timeval time;
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000LL + time.tv_usec / 1000LL);
 }
