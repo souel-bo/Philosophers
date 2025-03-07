@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:55 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/07 04:45:36 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/07 06:18:06 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <string.h>
+#include <limits.h>
 
 typedef struct s_philo
 {
@@ -40,15 +41,17 @@ typedef struct s_philo
 
 typedef struct s_program
 {
-    unsigned int num_philo;
-    unsigned int time_to_die;
-    unsigned int num_meals;
-    unsigned int time_to_sleep;
-    unsigned int time_to_eat;
+    long long num_philo;
+    long long time_to_die;
+    long long num_meals;
+    long long time_to_sleep;
+    long long time_to_eat;
     t_philo *philos;
 } t_program ;
 
-unsigned long	ft_atoi(const char *str);
+long long	ft_atoi(const char *str);
 long long get_time(void);
+void init_mutex(pthread_mutex_t *forks, t_program *program);
+void destroy_mutex(pthread_mutex_t *forks, t_program *program);
 
 #endif

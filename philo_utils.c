@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfyn <sfyn@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:28:47 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/01 23:25:50 by sfyn             ###   ########.fr       */
+/*   Updated: 2025/03/07 05:47:14 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/philo.h"
 
-unsigned long	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
 	unsigned long		i;
 	unsigned long		s;
@@ -37,6 +37,8 @@ unsigned long	ft_atoi(const char *str)
 			return 9999999999999;
 		i++;
 	}
+	if (r > INT_MAX)
+		return 9999999999999; 
 	return (r * s);
 }
 
