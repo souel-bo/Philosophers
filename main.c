@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:37 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/07 06:44:36 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/07 23:54:25 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int argc, char *argv[])
 	if (!parse_input(argv, &program, argc))
 		return (1);
 	init_mutex(forks, &program);
-	init_philo();
-	destroy_mutex(forks, &program);
+	init_philo(&program, philos, forks, argv);
+	create_threads(philos, &program,forks);
+	destroy_mutex(forks, &program, philos);
 }
