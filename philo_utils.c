@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:28:47 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/08 01:14:49 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/09 08:43:31 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,20 @@ long long	ft_atoi(const char *str)
 	return (r * s);
 }
 
-long long get_time(void)
+void destroy_mutexes(t_program *program, t_philo *philos, pthread_mutex_t *forks)
+{
+	int i = 0;
+	pthread_mutex_destroy(&program->printf_lock);
+	pthread_mutex_destroy(&program->meal);
+	pthread_mutex_destroy(&program->death_lock);
+	while (i < philos[0].num_of_philos)
+	{
+		pthread_mutex_destroy(&forks[i]);
+		i++;
+	}
+}
+
+size_t get_time(void)
 {
 	struct timeval time;
 	gettimeofday(&time, NULL);

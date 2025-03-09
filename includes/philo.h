@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:55 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/08 05:47:49 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/09 08:28:34 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,47 +21,40 @@
 #include <string.h>
 #include <limits.h>
 
-
 typedef struct s_philo
 {
-	pthread_t		thread;
-	int				id;
-	int				meals_eaten;
-	long long num_philo;
-    long long time_to_die;
-    long long num_meals;
-    long long time_to_sleep;
-    long long time_to_eat;
-	size_t			last_meal;
-	size_t			current_time;
-	size_t			start_time;
-	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*left_fork;
-	int 			*dead;
-	pthread_mutex_t meal_lock;
-	pthread_mutex_t death_lock;
-} t_philo;
-
+	size_t time_to_eat;
+	int philo_id;
+	size_t time_to_die;
+	int is_eating;
+	int meals_eated;
+	pthread_t thread;
+	size_t last_meal;
+	size_t time_to_sleep;
+	size_t start_time;
+	int num_of_philos;
+	int num_meals;
+	int *dead_flad;
+	pthread_mutex_t *right_fork;
+	pthread_mutex_t *left_fork;
+	pthread_mutex_t *printf_lock;
+	pthread_mutex_t *death_lock;
+	pthread_mutex_t *meal;
+} t_philo ;
 
 typedef struct s_program
 {
-	int		  		death;
+	int dead_flag;
+	pthread_mutex_t printf_lock;
 	pthread_mutex_t death_lock;
-	long long start;
-    long long num_philo;
-    long long time_to_die;
-    long long num_meals;
-    long long time_to_sleep;
-    long long time_to_eat;
-    t_philo   *philo;
-} t_program ;
+	pthread_mutex_t meal;
+	t_philo *philos;
+} t_program;
 
 long long	ft_atoi(const char *str);
-long long get_time(void);
-void init_mutex(pthread_mutex_t *forks, t_program *program);
-void destroy_mutex(pthread_mutex_t *forks, t_program *program, t_philo *philos);
-void init_philo(t_program *program, t_philo *philos, pthread_mutex_t	*forks, char **argv);
-void init_input(t_program *program, t_philo *philos, int i);
-void create_threads(t_philo *philo, t_program *program, pthread_mutex_t *forks);
-
+void init_program(t_program *program, t_philo *philos);
+void  init_threads(t_philo *philos, t_program *program, pthread_mutex_t *forks, char **argv);
+size_t get_time(void);
+void init_mutexes(pthread_mutex_t *forks, int number_of_philos);
+void destroy_mutexes(t_program *program, t_philo *philos, pthread_mutex_t *forks);
 #endif

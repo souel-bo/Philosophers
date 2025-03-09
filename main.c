@@ -6,48 +6,46 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:37 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/07 23:54:25 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/09 08:48:33 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/philo.h"
 
-int parse_input(char **argv, t_program *program, int arguments)
+int parse_input(char **argv, int arguments)
 {
 		if (arguments == 6)
 		{
-			program->num_meals = ft_atoi(argv[5]);
-			if (program->num_meals == 9999999999999 || program->num_meals == 0)
+			if (ft_atoi(argv[5]) == 9999999999999 || ft_atoi(argv[5]) == 0)
 				return (0);
 		}
-		else 
-			program->num_meals = -1;
-		program->num_philo = ft_atoi(argv[1]);
-		program->time_to_die = ft_atoi(argv[1]);
-		program->time_to_eat = ft_atoi(argv[3]);
-		program->time_to_sleep = ft_atoi(argv[4]);
-		if (program->time_to_die == 9999999999999)
+		if (ft_atoi(argv[4]) == 9999999999999)
 			return (0);
-		if (program->time_to_sleep == 9999999999999 || program->time_to_sleep == 0)
+		if (ft_atoi(argv[2]) == 9999999999999 || ft_atoi(argv[2]) == 0)
 			return (0);
-		if (program->time_to_eat == 9999999999999 || program->time_to_eat == 0)
+		if (ft_atoi(argv[3]) == 9999999999999 || ft_atoi(argv[3]) == 0)
 			return (0);
-		if (program->num_philo == 9999999999999 || program->num_philo == 0 ||  program->num_philo > 200)
+		if (ft_atoi(argv[1]) == 9999999999999 || ft_atoi(argv[1]) == 0 ||  ft_atoi(argv[1]) > 200)
 			return (0);
 		return (1);
 }
 
-int	main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
 	t_program program;
 	t_philo philos[200];
 	pthread_mutex_t forks[200];
-	if (argc != 5 && argc != 6)
+	
+	if (argc < 5 || argc > 6)
 		return (1);
-	if (!parse_input(argv, &program, argc))
+	if (!parse_input(argv, argc))
 		return (1);
-	init_mutex(forks, &program);
-	init_philo(&program, philos, forks, argv);
-	create_threads(philos, &program,forks);
-	destroy_mutex(forks, &program, philos);
+	init_program(&program, philos);
+	init_mutexes(forks, ft_atoi(argv[1]));
+	init_threads(philos, &program, forks, argv);
+	destroy_mutexes(&program, philos, forks);
 }
+
+
+
+
