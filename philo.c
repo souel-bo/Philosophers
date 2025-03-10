@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 20:52:12 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/10 06:02:30 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/10 08:49:51 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void *routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->philo_id % 2 == 0)
-		ft_usleep(2);
+		ft_usleep(5);
 	while (!repeat(philo))
 	{
 		eat(philo);

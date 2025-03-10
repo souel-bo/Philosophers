@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:37 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/10 01:49:03 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/10 08:39:00 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int parse_input(char **argv, int arguments)
 			if (ft_atoi(argv[5]) == 9999999999999 || ft_atoi(argv[5]) == 0)
 				return (0);
 		}
-		if (ft_atoi(argv[4]) == 9999999999999)
+		if (ft_atoi(argv[4]) == 9999999999999 || ft_atoi(argv[4]) == 0)
 			return (0);
-		if (ft_atoi(argv[2]) == 9999999999999 || ft_atoi(argv[2]) == 0)
+		if (ft_atoi(argv[2]) == 9999999999999 )
 			return (0);
 		if (ft_atoi(argv[3]) == 9999999999999 || ft_atoi(argv[3]) == 0)
 			return (0);
