@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:55 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/09 08:28:34 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/10 05:33:36 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_program
 	pthread_mutex_t printf_lock;
 	pthread_mutex_t death_lock;
 	pthread_mutex_t meal;
+	pthread_t monitor;
 	t_philo *philos;
 } t_program;
 
@@ -57,4 +58,10 @@ void  init_threads(t_philo *philos, t_program *program, pthread_mutex_t *forks, 
 size_t get_time(void);
 void init_mutexes(pthread_mutex_t *forks, int number_of_philos);
 void destroy_mutexes(t_program *program, t_philo *philos, pthread_mutex_t *forks);
+void threads(t_program *program);
+int check_meals(t_philo *philos);
+void *monitor(void *arg);
+int check_death(t_philo *philos);
+void	print(char *str, t_philo *philo, int id);
+
 #endif

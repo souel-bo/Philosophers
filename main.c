@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:37 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/09 08:48:33 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/10 01:49:03 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int main(int argc, char **argv)
 	init_program(&program, philos);
 	init_mutexes(forks, ft_atoi(argv[1]));
 	init_threads(philos, &program, forks, argv);
+	threads(&program);
 	destroy_mutexes(&program, philos, forks);
 }
 

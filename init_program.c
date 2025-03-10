@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 06:49:52 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/09 08:45:44 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/09 20:37:30 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,14 @@ void  init_threads(t_philo *philos, t_program *program, pthread_mutex_t *forks, 
     while (i < ft_atoi(argv[1]))
     {
         philos[i].philo_id = i + 1;
-        printf("philo with %d id \n", philos[i].philo_id);
         philos[i].is_eating = 0;
         philos[i].meals_eated = 0;
         store_input(&philos[i], argv);
 		philos[i].start_time = get_time();
 		philos[i].last_meal = get_time();
 		philos[i].printf_lock = &program->printf_lock;
-		philos[i].death_lock = &program->death_lock;
 		philos[i].meal = &program->meal;
+		philos[i].death_lock = &program->death_lock;
 		philos[i].dead_flad = &program->dead_flag;
 		philos[i].left_fork = &forks[i];
 		if (i == 0)

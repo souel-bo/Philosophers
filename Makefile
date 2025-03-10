@@ -1,7 +1,7 @@
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRC = init_program.c  main.c  philo_utils.c
+SRC = init_program.c  main.c  philo.c  philo_utils.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
