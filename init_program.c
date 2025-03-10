@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 06:49:52 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/09 20:37:30 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:34:03 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void init_program(t_program *program, t_philo *philos)
     program->philos = philos;
     pthread_mutex_init(&program->printf_lock, NULL);
     pthread_mutex_init(&program->death_lock, NULL);
+    pthread_mutex_init(&program->meal, NULL);
     program->dead_flag = 0;
+    program->finished = 0;
 }
 
 void init_mutexes(pthread_mutex_t *forks, int number_of_philos)
@@ -55,8 +57,10 @@ void  init_threads(t_philo *philos, t_program *program, pthread_mutex_t *forks, 
 		philos[i].last_meal = get_time();
 		philos[i].printf_lock = &program->printf_lock;
 		philos[i].meal = &program->meal;
+        pthread_mutex_init(&philos[i].meal_lock, NULL);
 		philos[i].death_lock = &program->death_lock;
 		philos[i].dead_flad = &program->dead_flag;
+        philos[i].finished = &program->dead_flag;
 		philos[i].left_fork = &forks[i];
 		if (i == 0)
 			philos[i].right_fork = &forks[philos[i].num_of_philos - 1];

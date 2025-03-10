@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:28:47 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/10 04:48:09 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/10 22:15:26 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,20 @@ int check_meals(t_philo *philos)
 {
 	int finish = 0;
 	int i = 0;
-
 	if (philos[0].num_meals == -1)
 		return 0;
 	while (i < philos[i].num_of_philos)
 	{
-		pthread_mutex_lock(philos[i].meal);
+		pthread_mutex_lock(&philos[i].meal_lock);
 		if (philos[i].meals_eated >= philos[i].num_meals)
 			finish++;
-		pthread_mutex_unlock(philos[i].meal);
+		pthread_mutex_unlock(&philos[i].meal_lock);
 		i++;
 	}
 	if (finish == philos[0].num_of_philos)
 	{
 		pthread_mutex_lock(philos[0].death_lock);
-		*philos->dead_flad = 1;
+		*philos->finished = 1;
 		pthread_mutex_unlock(philos[0].death_lock);
 		return (1);
 	}
@@ -89,11 +88,11 @@ int check_meals(t_philo *philos)
 
 int check(t_philo *philo, size_t time_to_die)
 {
-	pthread_mutex_lock(philo->meal);
-	if (get_time() - philo->last_meal >= time_to_die
+	pthread_mutex_lock(&philo->meal_lock);
+	if (!philo->is_eating && get_time() - philo->last_meal >= time_to_die
 		&& philo->is_eating == 0)
-		return (pthread_mutex_unlock(philo->meal), 1);
-	pthread_mutex_unlock(philo->meal);
+		return (pthread_mutex_unlock(&philo->meal_lock), 1);
+	pthread_mutex_unlock(&philo->meal_lock);
 	return (0);	
 }
 

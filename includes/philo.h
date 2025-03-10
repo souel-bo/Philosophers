@@ -6,7 +6,7 @@
 /*   By: souel-bo <souel-bo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:11:55 by souel-bo          #+#    #+#             */
-/*   Updated: 2025/03/10 05:33:36 by souel-bo         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:33:03 by souel-bo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <sys/time.h>
 #include <string.h>
 #include <limits.h>
-
+#include <stdbool.h>
 typedef struct s_philo
 {
 	size_t time_to_eat;
@@ -35,16 +35,19 @@ typedef struct s_philo
 	int num_of_philos;
 	int num_meals;
 	int *dead_flad;
+	int     *finished;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *printf_lock;
 	pthread_mutex_t *death_lock;
 	pthread_mutex_t *meal;
+	pthread_mutex_t meal_lock;
 } t_philo ;
 
 typedef struct s_program
 {
 	int dead_flag;
+	int finished;
 	pthread_mutex_t printf_lock;
 	pthread_mutex_t death_lock;
 	pthread_mutex_t meal;
